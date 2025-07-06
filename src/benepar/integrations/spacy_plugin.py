@@ -7,6 +7,7 @@ from .spacy_extensions import ConstituentData, NonConstituentException
 import torch
 
 
+
 class PartialConstituentData:
     def __init__(self):
         self.starts = [np.array([], dtype=int)]
@@ -92,6 +93,9 @@ class BeneparComponent:
     """
 
     name = "benepar"
+    assigns = ["doc._._constituent_data", "span._.labels", "span._.parse_string", 
+               "span._.constituents", "span._.parent", "span._.children",
+               "token._.labels", "token._.parse_string", "token._.parent"]
 
     def __init__(
         self,
@@ -196,6 +200,9 @@ def register_benepar_component_factory():
             "subbatch_max_tokens": 500,
             "disable_tagger": False,
         },
+        assigns=["doc._._constituent_data", "span._.labels", "span._.parse_string", 
+                "span._.constituents", "span._.parent", "span._.children",
+                "token._.labels", "token._.parse_string", "token._.parent"],
         func=create_benepar_component,
     )
 
